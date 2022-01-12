@@ -21,8 +21,8 @@ export class AppComponent implements OnInit {
 
 
   title = 'noc';
-  displayedColumns: string[] = ['id', 'type' /*, 'name'*/];
-  _url = "https://apps.noc-innovations.co.uk/api/polpred-api/latest/get-licences?key=U2uf2HSEBrDXV2jl";
+  displayedColumns: string[] = ['name', 'lat', 'lng' /*, 'name'*/];
+  _url = "https://apps.noc-innovations.co.uk/api/polpred-api/latest/get-port-list";
 
   //@ViewChild(MatSort) sort: MatSort;
   /*dataSource = this.http.get<any>(this._url).subscribe(response => {
@@ -31,40 +31,48 @@ export class AppComponent implements OnInit {
 
 
   /*
-    {
-      "id": 0,
-      "type": "offshore",
-      "details": {
-        "model": {
-          "code": "CS20_15HC3",
-          "name": "High Resolution CS20 Model (Depth averaged)"
-        },
-        "latN": "53.50",
-        "lngW": "-11.50",
-        "latS": "49.50",
-        "lngE": "-2.50",
-        "dateFrom": "2019-06-01",
-        "dateTo": "2020-01-01"
-      }
-    }
+  {
+  "data": {
+    "items": [
+      {
+        "name": "St. Helier",
+        "lat": 49.18333,
+        "lng": -2.11667
+      },
+      {
+        "name": "St. Mary's",
+        "lat": 49.91833,
+        "lng": -6.31667
+      },
+      {
+        "name": "Newlyn",
+        "lat": 50.10333,
+        "lng": -5.54333
+      },
+      {
+        "name": "Plymouth",
+        "lat": 50.36833,
+        "lng": -4.185
+      },
+      {
+        "name": "Weymouth",
+        "lat": 50.60833,
+        "lng": -2.44833
+      },
+      { "etc..." },
+    ]
+  }
+}
   */
 
 
   ngOnInit() {
     this.http.get<any>(this._url).subscribe(response => {
-      var array: any[] = [];
-
-      JSON.parse(JSON.stringify(response.data.licences), function (key, value) {
-        if (key === "details") {
-          array = array.concat(value);
-        }
-
-        return value;
-      });
+      
       //console.log(array)
       this.rawdata = response.data.licences;
-      this.dataSource = new MatTableDataSource(response.data.licences/*, ...response.data.licences.details.model*/);
-      console.log(response.data.licences[0].details)
+      this.dataSource = new MatTableDataSource(response.data.items/*, ...response.data.licences.details.model*/);
+      console.log(response.data.items)
 
       
       //this.dataSource.sort = this.sort;
