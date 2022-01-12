@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataSource } from '@angular/cdk/collections';
 
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,6 +15,8 @@ import { DataSource } from '@angular/cdk/collections';
 export class AppComponent implements OnInit {
   dataSource: any;
   rawdata: any[] = [];
+  lat: any[] = [];
+  long: any[] = [];
 
   constructor(
     private http: HttpClient,
@@ -23,6 +26,44 @@ export class AppComponent implements OnInit {
   title = 'noc';
   displayedColumns: string[] = ['name', 'lat', 'lng' /*, 'name'*/];
   _url = "https://apps.noc-innovations.co.uk/api/polpred-api/latest/get-port-list";
+
+  layout = {
+
+    autosize: false,
+
+    width: 500,
+
+    height: 500,
+
+    yaxis: {
+
+      title: 'Y-axis Title',
+
+      ticktext: ['long label', 'Very long label', '3', 'label'],
+
+      tickvals: [1, 2, 3, 4],
+
+      tickmode: 'array',
+
+      automargin: true,
+
+      titlefont: { size: 30 },
+
+    },
+
+    paper_bgcolor: '#7f7f7f',
+
+    plot_bgcolor: '#c7c7c7'
+
+  };
+
+  public graph = {
+    data: [
+      { x: this.lat, y: this.long, type: 'scatter', mode: 'markers', marker: { color: 'red' } },
+
+    ],
+    layout: this.layout
+  };
 
   //@ViewChild(MatSort) sort: MatSort;
   /*dataSource = this.http.get<any>(this._url).subscribe(response => {
@@ -68,13 +109,18 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<any>(this._url).subscribe(response => {
-      
-      //console.log(array)
-      this.rawdata = response.data.licences;
-      this.dataSource = new MatTableDataSource(response.data.items/*, ...response.data.licences.details.model*/);
-      console.log(response.data.items)
 
-      
+      //console.log(array)
+      this.rawdata = response.data.items;
+
+      this.rawdata.forEach(element => this.lat.push(element.lat));
+      this.rawdata.forEach(element => this.long.push(element.lng));
+
+      this.dataSource = new MatTableDataSource(response.data.items/*, ...response.data.licences.details.model*/);
+      console.log(this.lat, this.long);
+  
+
+
       //this.dataSource.sort = this.sort;
     });
   }
