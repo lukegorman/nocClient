@@ -64,8 +64,12 @@ table {
     margin: 0 16px;
 }
 
-
-
+.toolbar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+}
 
 
 .content {
@@ -74,8 +78,9 @@ table {
     padding: 0 16px;
 
     flex-direction: row;
-  
+
 }
+
 
 svg.material-icons {
     height: 24px;
@@ -123,5 +128,3 @@ svg#clouds {
     z-index: -10;
     width: 1920px;
 }
-
-
