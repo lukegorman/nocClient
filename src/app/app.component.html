@@ -1,47 +1,30 @@
-
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <img width="200" alt="Angular Logo"
-    src="https://apps.noc-innovations.co.uk/docs/polpred-api/_static/logo.png" />
+  <img width="200" alt="Angular Logo" src="https://apps.noc-innovations.co.uk/docs/polpred-api/_static/logo.png" />
   <span>NOC Data: Port List</span>
   <div class="spacer"></div>
-
 </div>
 
 <div class="content" role="main">
 
-    
- <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
-
+  <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
-
-
     <ng-container matColumnDef="lat">
       <th mat-header-cell *matHeaderCellDef> latitude </th>
       <td mat-cell *matCellDef="let element"> {{element.lat}} </td>
     </ng-container>
-
-
     <ng-container matColumnDef="lng">
       <th mat-header-cell *matHeaderCellDef> longitude </th>
       <td mat-cell *matCellDef="let element"> {{element.lng}} </td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
- 
-
-   
-    
 
   <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
     <title>Gray Clouds Background</title>
